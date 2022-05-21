@@ -1,14 +1,29 @@
 import React, {useState} from "react";
 import foodData from "../foods.json"
 import FoodBox from "./FoodBox"
+import FoodForm from "./FoodForm";
 
 function Foods(){
     const [foods, setFoods] = useState(foodData)
+    const [showForm, setShowForm] = useState(false)
 
-    return(
+    const toggleForm = () => {
+        setShowForm(!showForm)
+    }
+
+    const addFood = newFood => {
+        const updatedFoods = [...foods, newFood]
+        setFoods(updatedFoods)
+        toggleForm()
+    }
+
+    return(      
         <div>
             <h1>IronNutrition</h1>
-            <button className="button">Add food</button>
+            <button onClick = {toggleForm} className="button">Add food</button>
+            {showForm && <FoodForm addFood = {addFood} />}
+            
+
             <div className = "columns">
                 <div className = "column">
                 {
@@ -16,13 +31,10 @@ function Foods(){
                         return <FoodBox food = {food} />
                     })
                 }
-
-
-                <FoodBox food = {foodData[3]}/>
                 </div>
 
                 <div className = "column"></div>
-            </div>
+        </div>
         </div>
     )
 }

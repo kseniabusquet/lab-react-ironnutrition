@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 function FoodForm(props){
 
+    const {addFood} = props
+
     const [name, setName] = useState("")
     const [calories, setCalories] = useState(200)
     const [image, setImage] = useState("")
@@ -11,10 +13,17 @@ function FoodForm(props){
 
     const handleSubmit = e => {
         e.preventDefault()
+        const newFood = {name, calories, image}
+        
+        addFood(newFood)
+        setName("")
+        setCalories(200)
+        setImage("")
     }
 
 
     return (
+      <div className = "box">
         <form onSubmit={handleSubmit}>
             <div className = "field">
               <label className = "label">Name</label>
@@ -54,6 +63,7 @@ function FoodForm(props){
 
             <button className = "button" type = "submit">Add</button>
         </form>
+        </div>
     )
 }
 
