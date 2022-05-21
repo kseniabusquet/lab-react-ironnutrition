@@ -1,8 +1,21 @@
-import React from "react"
+import React, {useState} from "react"
 
 function FoodBox(props) {
 
-const {food} = props
+const {food, addToMenu} = props
+const [quantity, setQuantity] = useState(1)
+const handleQuantityChange = e => setQuantity(e.target.value)
+
+const handleAddClick = () => {
+
+    const foodData = {
+        name: food.name,
+        quantity: quantity,
+        calories: food.calories * quantity
+    }
+
+    addToMenu(foodData)
+} 
 
     return (
         <div className="box">
@@ -25,10 +38,15 @@ const {food} = props
                 <div className="media-right">
                 <div className="field has-addons">
                     <div className="control">
-                    <input className="input" type="number" />
+                    <input 
+                        className="input" 
+                        type="number" 
+                        value = {quantity}
+                        onChange = {handleQuantityChange}
+                        />
                     </div>
                     <div className="control">
-                    <button className="button is-info">
+                    <button onClick = {handleAddClick} className="button is-info">
                         +
                     </button>
                     </div>

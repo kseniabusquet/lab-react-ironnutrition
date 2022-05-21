@@ -16,6 +16,9 @@ function FoodForm(props){
         const newFood = {name, calories, image}
         
         addFood(newFood)
+
+        
+
         setName("")
         setCalories(200)
         setImage("")
