@@ -1,0 +1,60 @@
+import React, {useState} from "react";
+function FoodForm(props){
+
+    const [name, setName] = useState("")
+    const [calories, setCalories] = useState(200)
+    const [image, setImage] = useState("")
+
+    const handleFoodName = e => setName(e.target.value)
+    const handleFoodCalories = e => setCalories(e.target.value)
+    const handleFoodImage = e => setImage(e.target.value)
+
+    const handleSubmit = e => {
+        e.preventDefault()
+    }
+
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className = "field">
+              <label className = "label">Name</label>
+                <div className="control">
+                 <input 
+                 type = "text"
+                 className = "input"
+                 value = {name} 
+                 onChange = {handleFoodName}
+                 />
+                </div>
+            </div>
+
+            <div className = "field">
+              <label className = "label">Calories</label>
+                <div className="control">
+                 <input 
+                 type = "number"
+                 className = "input"
+                 value = {calories} 
+                 onChange = {handleFoodCalories}
+                 />
+                </div>
+            </div>
+
+            <div className = "field">
+              <label className = "label">Image</label>
+                <div className="control">
+                 <input 
+                 type = "text"
+                 className = "input"
+                 value = {image} 
+                 onChange = {handleFoodImage}
+                 />
+                </div>
+            </div>
+
+            <button className = "button" type = "submit">Add</button>
+        </form>
+    )
+}
+
+export default FoodForm
