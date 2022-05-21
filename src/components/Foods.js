@@ -3,6 +3,7 @@ import foodData from "../foods.json"
 import FoodBox from "./FoodBox"
 import FoodForm from "./FoodForm";
 import Search from "./Search";
+import './Foods.css';
 
 function Foods(){
     const [foods, setFoods] = useState(foodData)
@@ -32,7 +33,19 @@ function Foods(){
     }
 
     const addToMenu = foodData => {
-        const updatedMenu = [...menu, foodData]
+        const updatedMenu = [...menu]
+
+        const found = menu.find(element => {
+            return element.name === foodData.name
+        })
+
+        if (found) {
+            found.quantity += foodData.quantity
+            found.calories += foodData.calories
+        } else {
+            updatedMenu.push(foodData)
+        }
+        
         setMenu(updatedMenu)
     }
 
@@ -40,6 +53,16 @@ function Foods(){
         return menu.reduce((acc, val) => {
             return acc + val.calories
         }, 0)
+    }
+
+    const removeItem = (food) => {
+        const newMenu = [...menu]
+        const index = newMenu.findIndex((el) => {
+           return el.name === food.name
+        })
+        newMenu.splice(index, 1)
+        setMenu(newMenu)
+
     }
 
     return(      
@@ -64,7 +87,14 @@ function Foods(){
                     <ul>
                         {
                             menu.map(food => {
-                                return <li>{food.quantity} {food.name} = {food.calories} cal</li>
+                                return (
+                                <div className = "todayFood">
+                                    <li>{food.quantity} {food.name} = {food.calories} cal</li>
+                                    <button className = "button is-light is-danger" onClick = {() => removeItem(food)}>
+                                    Remove 🗑️
+                                    </button>
+                                </div>
+                                )
                             })
                         }
                     </ul>

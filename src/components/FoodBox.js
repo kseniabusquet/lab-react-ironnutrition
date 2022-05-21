@@ -10,7 +10,7 @@ const handleAddClick = () => {
 
     const foodData = {
         name: food.name,
-        quantity: quantity,
+        quantity: Number(quantity),
         calories: food.calories * quantity
     }
 
